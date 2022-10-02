@@ -31,22 +31,34 @@
 <!--JSX code-->
 <script type="text/babel">
 
+class PalleteBox extends React.Component{
 
-
-
-    class PalleteBox extends React.Component{
+        state = {extraStyle:{}, clicks:0};
 
         onMouseOverHandler =(e) =>{
-            console.log(this.color,'--> Over');
-            this.setState({
-                extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}});
+            //console.log(this.color,'--> Over');
+            //this.setState({extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}});
+            this.setState((oldstate) =>
+            {
+            return {...oldstate, extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}};
+            });
         }
         onMouseLeaveHandler =(e)=>{
-            console.log(this.color,'--> Leave');
-            this.setState({extraStyle:{}});
+            //console.log(this.color,'--> Leave');
+            //this.setState({extraStyle:{}});
+            this.setState((oldstate) => ({...oldstate, extraStyle:{}}))
         }
 
-        state = {size: 120};
+        onClickHandler = () =>{
+            console.log(this.color, ' clicked!');
+            this.setState( (oldstate) => {
+
+                return {...oldstate, clicks: oldstate.clicks + 1};
+            } );
+
+        }
+
+
         initProps = () => {
             let {color = "#9ca1e7", size} = this.props;
 
@@ -69,11 +81,18 @@
                 };
         }
 
+
+
         render = () => {
             this.initProps();
             return (
-                <div style={this.style} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
+                <div style={this.style} onMouseOver={this.onMouseOverHandler}
+                                        onMouseLeave={this.onMouseLeaveHandler}
+                                         onClick={this.onClickHandler}>
                     <span className="palleteText">{this.color}</span>
+                    <br/>
+                    <span>clicks:{this.state.clicks}</span>
+
                 </div>
             );
         }
@@ -101,7 +120,7 @@
 
 
     ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
-    ReactDOM.render(<Pallete N={10}/>, document.getElementById("root2"));
+    ReactDOM.render(<Pallete N={24}/>, document.getElementById("root2"));
 
 
 </script>
