@@ -19,14 +19,16 @@
 
     class PalleteBox extends React.Component{
 
-        constructor() {
+        constructor({color= "#9ca1e7",size}) {
             super();
-            let size = '100px';
-            this.color = "#9ca1e7";
+            size = parseInt(size);
+            if(!Number.isInteger(size) || size < 10 || size > 150) size=100;
+            this.size = size;
+            this.color = color;
             this.style =
                 {
-                    width: size,
-                    height:size,
+                    width: this.size,
+                    height:this.size,
                     backgroundColor: this.color,
                     borderRadius: '5px',
                     padding: '2px',
@@ -45,7 +47,41 @@
         }
     }
 
-    ReactDOM.render(<PalleteBox />, document.getElementById("root"));
+    class PalleteBox2 extends React.Component{
+
+        initProps = () => {
+            let {color = "#9ca1e7", size} = this.props;
+
+            size = parseInt(size);
+            if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
+            this.size = size;
+            this.color = color;
+            this.style =
+                {
+                    width: this.size,
+                    height: this.size,
+                    backgroundColor: this.color,
+                    borderRadius: '5px',
+                    padding: '2px',
+                    margin: '2px',
+                    display: 'inline-block',
+                    textAlign: 'center'
+                };
+        }
+
+        render = () => {
+            this.initProps();
+            return (
+                <div style={this.style}>
+                    <span className="palleteText">{this.color}</span>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
+    ReactDOM.render(<PalleteBox color="lightblue" size="120"/>, document.getElementById("root2"));
+
 </script>
 
 
