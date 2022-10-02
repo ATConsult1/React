@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Learning</title>
+    <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="src/css/pallet.css">
+
+</head>
+<body>
+<div id="root"></div>
+<div id="root2"></div>
+
+
+<!--JSX code-->
+<script type="text/babel">
+
+    class PalleteBox extends React.Component{
+
+        constructor() {
+            super();
+            let size = '100px';
+            this.color = "#9ca1e7";
+            this.style =
+                {
+                    width: size,
+                    height:size,
+                    backgroundColor: this.color,
+                    borderRadius: '5px',
+                    padding: '2px',
+                    margin: '2px',
+                    display: 'inline-block',
+                    textAlign: 'center'
+                }
+        }
+
+        render(){
+            return (
+                <div style={this.style}>
+                    <span className="palleteText">{this.color}</span>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<PalleteBox />, document.getElementById("root"));
+</script>
+
+
+
+</body>
+</html>
