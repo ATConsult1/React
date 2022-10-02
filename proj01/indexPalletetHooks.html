@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Learning</title>
+    <script src="https://unpkg.com/react@18.1.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="src/css/pallet.css">
+
+</head>
+<body>
+<div id="root"></div>
+<div id="root2"></div>
+
+
+
+<script>
+    randomColor =() =>
+    {
+        const letter = '0123456789abcdef';
+        let color = '#';
+        for(let i = 0; i<6; i++) color += letter[Math.floor(Math.random()*16)];
+        return color;
+
+    };
+</script>
+
+<!--JSX code-->
+<script type="text/babel">
+
+const PalleteBox = ({color= "#9ca1e7",size}) => {
+
+       // ---- useState hook
+        const [data, processData] = React.useState({extraStyle:{}, clicks:0});
+
+        size = parseInt(size);
+        if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
+
+        const onMouseOverHandler =(e) =>{
+            //console.log(this.color,'--> Over');
+            processData({...data, extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}});
+        }
+        const onMouseLeaveHandler =(e)=>{
+            //console.log(this.color,'--> Leave');
+            processData({...data, extraStyle:{}});
+        }
+
+        const onClickHandler = () =>{
+            console.log(color, ' clicked!');
+            processData({...data, clicks: data.clicks +1});
+
+        }
+
+        let style =
+                {
+                    width: size,
+                    height: size,
+                    backgroundColor: color,
+                    borderRadius: '5px',
+                    padding: '2px',
+                    margin: '2px',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    ...data.extraStyle
+                };
+
+        return (
+                <div style={style} onMouseOver={onMouseOverHandler}
+                                        onMouseLeave={onMouseLeaveHandler}
+                                         onClick={onClickHandler}>
+                    <span className="palleteText">{color}</span>
+                    <br/>
+                    <span>clicks:{data.clicks}</span>
+
+                </div>
+            );
+
+};
+
+const Pallete = ({N=10}) => {
+
+            const pallete = [];
+            for(let i =0; i<N; i++) pallete.push(
+                <PalleteBox color={randomColor()} size={100 + Math.floor(Math.random()*20)}/>);
+
+            return (
+                <div style={{display: 'inline-block'}}>
+                    {pallete}
+                </div>
+            );
+
+};
+
+
+    ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
+    ReactDOM.render(<Pallete N={24}/>, document.getElementById("root2"));
+
+
+</script>
+
+</body>
+</html>
