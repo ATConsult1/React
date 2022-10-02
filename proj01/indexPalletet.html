@@ -14,8 +14,24 @@
 <div id="root2"></div>
 
 
+
+<script>
+    randomColor =() =>
+    {
+        const letter = '0123456789abcdef';
+        let color = '#';
+        for(let i = 0; i<6; i++) color += letter[Math.floor(Math.random()*16)];
+        return color;
+
+    };
+
+
+</script>
+
 <!--JSX code-->
 <script type="text/babel">
+
+
 
 
     class PalleteBox extends React.Component{
@@ -69,7 +85,8 @@
         {
             this.N = this.props.N;
             this.pallete = [];
-            for(let i =0; i<this.N; i++) this.pallete.push(<PalleteBox />);
+            for(let i =0; i<this.N; i++) this.pallete.push(
+                <PalleteBox color={randomColor()} size={100 + Math.floor(Math.random()*20)}/>);
         };
 
         render = () =>{
@@ -83,14 +100,11 @@
     }
 
 
-
     ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
-    ReactDOM.render(<Pallete N='3'/>, document.getElementById("root2"));
+    ReactDOM.render(<Pallete N={10}/>, document.getElementById("root2"));
 
 
 </script>
-
-
 
 </body>
 </html>
