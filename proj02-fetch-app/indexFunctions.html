@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Functions test</title>
+
+</head>
+<body>
+
+<script>
+
+    const _ =
+        (function f3(){
+        let counter = 0
+        function f2(){
+            return ++counter;
+        }
+        function f3(){
+            return --counter;
+        }
+        function f4(){counter =0; return counter;}
+
+    return {'increment': f2, 'decrement': f3, 'reset':f4};
+    })();
+
+
+</script>
+
+
+</body>
+</html>

@@ -28,7 +28,7 @@ const pool = mariadb.createPool({
   database: mdb_dbas,
   port: mdb_port
 });
-
+``
 var getConnection = function(){
       return new Promise(function(resolve,reject){
         pool.getConnection().then(function(connection){

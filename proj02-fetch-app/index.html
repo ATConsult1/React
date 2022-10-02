@@ -3,21 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Library List</title>
-    <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@18.1.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
 
 <div id="root"></div>
-<button id="fetch" >Получить список книг</button>
+
 
 <script type="text/babel">
 
+const Books =() => {
 
+    const [data, processData] = React.useState({books:[]});
+    const getBooks = () => {
+        fetch("http://172.27.2.49:8080/api/books").then((data) => data.json()).then((data) => {
+            console.log(data);
+            //processData(st => {st.books = data});
+            processData(st => {return {...st, books: data}});
+            });
+    };
 
+    const onClickHandler = ( )=>
+    {
+     getBooks();
+    }
 
+    const rows = () =>
+    {
+        return data.books.map(
+            (book) => {
+                return (<li>{book.id} -- {book.title} -- {book.author} </li>);
+            }
+        )
+    }
+
+    return (
+        <div>
+            <ul>
+                {rows()}
+            </ul>
+            <button id="fetch" onClick={onClickHandler}>Получить список книг</button>
+        </div>
+    );
+
+};
+
+ReactDOM.render(<Books />, document.getElementById('root'));
 </script>
+
 
 
 </body>
