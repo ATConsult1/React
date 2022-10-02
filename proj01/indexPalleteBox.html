@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Learning</title>
+    <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="src/css/pallet.css">
+
+</head>
+<body>
+<div id="root"></div>
+<div id="root2"></div>
+
+
+<!--JSX code-->
+<script type="text/babel">
+
+    class PalleteBox extends React.Component{
+
+        onMouseOverHandler =() =>{
+            console.log(this.color,'--> Over');
+            this.props.size += 10;
+        }
+        onMouseLeaveHandler =()=>{
+            console.log(this.color,'--> Leave');
+            this.size -= 10;
+        }
+
+        constructor({color= "#9ca1e7",size}) {
+            super();
+            size = parseInt(size);
+            if(!Number.isInteger(size) || size < 10 || size > 150) size=100;
+            this.size = size;
+            this.color = color;
+            this.style =
+                {
+                    width: this.size,
+                    height:this.size,
+                    backgroundColor: this.color,
+                    borderRadius: '5px',
+                    padding: '2px',
+                    margin: '2px',
+                    display: 'inline-block',
+                    textAlign: 'center'
+                }
+        }
+
+        render(){
+            return (
+                <div style={this.style} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
+                    <span className="palleteText">{this.color}</span>
+                </div>
+            );
+        }
+    }
+
+    class PalleteBox2 extends React.Component{
+
+        onMouseOverHandler =(e) =>{
+            console.log(this.color,'--> Over');
+            //this.setState({size: this.size + 10});
+            //this.props = {...this.props, size :  this.size + 10}; // not works
+            this.setState({
+                extraStyle:{border: 'solid 2px', borderColor:'grey'}});
+        }
+        onMouseLeaveHandler =(e)=>{
+            console.log(this.color,'--> Leave');
+            //this.setState({size: this.size - 10});
+            //this.size -= 10;
+            this.setState({extraStyle:{}});
+        }
+
+        state = {size: 120};
+        initProps = () => {
+            let {color = "#9ca1e7", size} = this.props;
+
+
+            size = parseInt(size);
+            if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
+            this.size = size;
+            this.color = color;
+            //this.size = this.state.size;
+            this.style =
+                {
+                    width: this.size,
+                    height: this.size,
+                    backgroundColor: this.color,
+                    borderRadius: '5px',
+                    padding: '2px',
+                    margin: '2px',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    ...this.state.extraStyle
+                };
+        }
+
+        render = () => {
+            this.initProps();
+            return (
+                <div style={this.style} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
+                    <span className="palleteText">{this.color}</span>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
+    ReactDOM.render(<PalleteBox2 color="lightblue" size="120"/>, document.getElementById("root2"));
+
+</script>
+
+
+
+</body>
+</html>

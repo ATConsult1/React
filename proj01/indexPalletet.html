@@ -17,40 +17,23 @@
 <!--JSX code-->
 <script type="text/babel">
 
+
     class PalleteBox extends React.Component{
 
-        constructor({color= "#9ca1e7",size}) {
-            super();
-            size = parseInt(size);
-            if(!Number.isInteger(size) || size < 10 || size > 150) size=100;
-            this.size = size;
-            this.color = color;
-            this.style =
-                {
-                    width: this.size,
-                    height:this.size,
-                    backgroundColor: this.color,
-                    borderRadius: '5px',
-                    padding: '2px',
-                    margin: '2px',
-                    display: 'inline-block',
-                    textAlign: 'center'
-                }
+        onMouseOverHandler =(e) =>{
+            console.log(this.color,'--> Over');
+            this.setState({
+                extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}});
+        }
+        onMouseLeaveHandler =(e)=>{
+            console.log(this.color,'--> Leave');
+            this.setState({extraStyle:{}});
         }
 
-        render(){
-            return (
-                <div style={this.style}>
-                    <span className="palleteText">{this.color}</span>
-                </div>
-            );
-        }
-    }
-
-    class PalleteBox2 extends React.Component{
-
+        state = {size: 120};
         initProps = () => {
             let {color = "#9ca1e7", size} = this.props;
+
 
             size = parseInt(size);
             if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
@@ -65,22 +48,45 @@
                     padding: '2px',
                     margin: '2px',
                     display: 'inline-block',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    ...this.state.extraStyle
                 };
         }
 
         render = () => {
             this.initProps();
             return (
-                <div style={this.style}>
+                <div style={this.style} onMouseOver={this.onMouseOverHandler} onMouseLeave={this.onMouseLeaveHandler}>
                     <span className="palleteText">{this.color}</span>
                 </div>
             );
         }
     }
 
+    class Pallete extends React.Component{
+
+        initProps = () =>
+        {
+            this.N = this.props.N;
+            this.pallete = [];
+            for(let i =0; i<this.N; i++) this.pallete.push(<PalleteBox />);
+        };
+
+        render = () =>{
+            this.initProps();
+            return (
+                <div style={{display: 'inline-block'}}>
+                    {this.pallete}
+                </div>
+                );
+        };
+    }
+
+
+
     ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
-    ReactDOM.render(<PalleteBox color="lightblue" size="120"/>, document.getElementById("root2"));
+    ReactDOM.render(<Pallete N='3'/>, document.getElementById("root2"));
+
 
 </script>
 
