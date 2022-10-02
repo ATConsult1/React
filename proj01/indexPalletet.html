@@ -35,6 +35,15 @@ class PalleteBox extends React.Component{
 
         state = {extraStyle:{}, clicks:0};
 
+     componentWillMount = () =>{ console.log(`willMount ${this.color}`);}
+     componentDidMount = () => { console.log(`didMount ${this.color}`); }
+     componentDidUpdate = () => { console.log(`didUpdate ${this.color}`); }
+     shouldComponentUpdate = (state,props) => {
+         console.log(`shouldComponentUpdate ${this.color}`);
+         if(this.state.clicks > 10) return false;
+         return true;
+     }
+
         onMouseOverHandler =(e) =>{
             //console.log(this.color,'--> Over');
             //this.setState({extraStyle:{border: 'solid 2px', borderColor:'grey', padding: "0px"}});
@@ -83,6 +92,8 @@ class PalleteBox extends React.Component{
 
         render = () => {
             this.initProps();
+            console.log(`+++ render ${this.color}`);
+
             return (
                 <div style={this.style} onMouseOver={this.onMouseOverHandler}
                                         onMouseLeave={this.onMouseLeaveHandler}
@@ -118,7 +129,7 @@ class PalleteBox extends React.Component{
 
 
     ReactDOM.render(<PalleteBox color="lightgrey" size="140"/>, document.getElementById("root"));
-    ReactDOM.render(<Pallete N={24}/>, document.getElementById("root2"));
+  //  ReactDOM.render(<Pallete N={24}/>, document.getElementById("root2"));
 
 
 </script>
