@@ -34,6 +34,9 @@ const PalleteBox = ({color= "#9ca1e7",size}) => {
        // ---- useState hook
         const [data, processData] = React.useState({extraStyle:{}, clicks:0});
 
+       // ----- useEffect hook
+      // React.useEffect(()=>{console.log(`useEffect listener fored +++ ${data.clicks}, ${data.extraStyle}`)},[data.clicks]);
+      React.useEffect(()=>{console.log(`useEffect listener fored +++ ${data.clicks}, ${data.extraStyle}`)},[data.extraStyle]);
         size = parseInt(size);
         if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
 
