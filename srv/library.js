@@ -14,7 +14,8 @@ var mdb_dbas = process.env.MDB_dbas;
 var mdb_port = process.env.MDB_PORT;
 
 //if(typeof mdb_host === 'undefined' || mdb_host === null ) mdb_host="127.0.0.1";
-if(typeof mdb_host === 'undefined' || mdb_host === null ) mdb_host="127.0.0.1";
+//if(typeof mdb_host === 'undefined' || mdb_host === null ) mdb_host="127.0.0.1";
+if(typeof mdb_host === 'undefined' || mdb_host === null ) mdb_host="172.27.2.49"
 if(typeof mdb_user === 'undefined' || mdb_user === null ) mdb_user="root";
 if(typeof mdb_pass === 'undefined' || mdb_pass === null ) mdb_pass="password";
 if(typeof mdb_dbas === 'undefined' || mdb_dbas === null ) mdb_dbas="library";
