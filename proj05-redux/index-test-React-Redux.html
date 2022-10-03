@@ -43,36 +43,70 @@ log(store.getState());
 
 <script type="text/babel">
 
-const Counter = (counter) =>
+class Counter extends React.Component
 {
+    render() {
     return (
-    <h2>Counter: {counter} </h2>
+    <h2>Counter: {this.props.counter} </h2>
     );
+    }
 }
 
-const Button = ({color="green", type="+"}) =>
+class Button  extends React.Component
 {
-
-    const onClick =() =>{
-        log('button clicked!');
-        setButtonState({...state,counter: state.counter+1})
+    constructor(props)
+    {
+        super(props);
+        this.state = {counter:0};
     }
 
-    const [state,setButtonState] = React.useState({counter:0});
-    log(state, color);
+    onClick =() =>{
+        log('button clicked!');
+        this.setState(state => ({...state, counter: state.counter+1}));
+        if(typeof this.props.dispatchStore !== "undefined")
+        {this.props.dispatchStore(this.props.type);}
 
-    return(
-        <div>
-        <button style={{color:color}} onClick={onClick}>
-            Counter: {state.counter}  type: {type}
-        </button>
-        </div>
-    );
+    }
+
+    render() {
+        log(this.state,this.props.color);
+        return (
+            <div>
+                <button style={{color: this.props.color, margin: 5, padding: 5}} onClick={this.onClick}>
+                    Count: {this.state.counter} type: {this.props.type}
+                </button>
+            </div>
+        );
+    }
 
 };
 
-ReactDOM.render(<Button color='green' type='+'/>,document.getElementById('root'));
+const mapState2Prop = (gstate) =>
+{
+    return {counter: gstate.counter};
+}
 
+const dispatch2props = (dispatch) =>
+{
+    return {dispatchStore: (data)=>dispatch({type:data})};
+}
+
+const GlobalCounter = ReactRedux.connect(mapState2Prop)(Counter)
+const Button1 = ReactRedux.connect(null,dispatch2props)(Button)
+
+const Provider = ReactRedux.Provider;
+
+ReactDOM.render(
+    <div>
+    <Provider store={store}>
+    <GlobalCounter />
+    <Button1 color='green' type='PLUS'/>
+    <Button1 color='red' type='MINUS'/>
+    <Button1 color='grey' type='RESET'/>
+    <Button1 color='lightblue' type='DOUBLE'/>
+    </Provider>
+    </div>,
+    document.getElementById('root'));
 </script>
 
 
