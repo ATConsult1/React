@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../../css/palleteApp.css'
 
 
-export default class PalleteBox extends Component{
+export default class PaletteBox extends Component{
 
     state = {extraStyle:{}, clicks:0};
 

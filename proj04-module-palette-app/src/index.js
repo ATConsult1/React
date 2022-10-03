@@ -1,4 +1,4 @@
 import ReactDOM from 'react-dom';
-import Pallete from "./js/components/Pallete";
+import Palette from "./js/components/Palette";
 
-ReactDOM.render(<Pallete N={12}/>, document.getElementById('root'));
+ReactDOM.render(<Palette N={12}/>, document.getElementById('root'));
