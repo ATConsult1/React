@@ -1,0 +1,26 @@
+table {
+    font-family: sans-serif;
+    padding: 3px;
+    margin: 3px;
+}
+
+th, td {
+    padding: 5px;
+    margin: 5px;
+    text-align: left;
+}
+
+td {
+    background-color:#eee;
+    width: 33%
+}
+th {
+    background-color: #00998c;
+    color:#fff;
+    width: 33%;
+}
+
+input{
+    margin-left: 8px;
+
+}

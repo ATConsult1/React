@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOG APP</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <link rel="stylesheet" href="src/css/records.css">
+</head>
+
+<body>
+
+<div id="root"></div>
+
+ <script type="text/babel">
+
+    class Record extends React.Component
+    {
+      render = () =>
+       {
+          console.log(this.props.message,this.props.created);
+          return (
+          <tr>
+              <td>{this.props.message}</td><td>{this.props.created}</td><td>{this.props.hash}</td>
+          </tr> );
+       };
+
+    }
+
+class App extends React.Component
+    {
+        state = {records: []};
+
+        initApp = () => {
+        }
+
+        addRecord =(e) =>
+        {
+            e.preventDefault();
+
+            const text = document.getElementById("logInput").value;
+            console.log("message",text);
+            const d= new Date();
+            const created = ` ${d.toLocaleDateString()} -- ${d.toLocaleTimeString()}`;
+            //const hash = CryptoJS.SHA256(text+created).toString(CryptoJS.enc.Base64);
+            const hash = CryptoJS.MD5(text+created).toString(CryptoJS.enc.Base64);
+            const record = <Record message = {text} created={created} hash={hash} />;
+            console.log(record);
+
+            this.setState((oldState) =>
+                {
+                   const newArr = [...oldState.records];
+                   newArr.push(record);
+                   return {records: newArr};
+                }
+            )
+            document.getElementById("logInput").value = "";
+        }
+
+        onChangeTextHandler = () =>{
+        }
+
+        render = () =>
+        {
+            this.initApp();
+            return (
+                <div>
+                <table>
+                    <tr>
+                    <th>Сообщение</th><th>Создано</th><th style={{width:'20%'}}>Хэш(SHA256)</th>
+                    </tr>
+                    {this.state.records}
+                </table>
+
+            <form onSubmit={this.addRecord}>
+            <input type="text" placeholder="Add LOG message"  id="logInput"/>
+            <input type="submit"  value= "Submit" />
+            </form>
+                </div>
+            );
+        };
+
+
+ }
+
+ ReactDOM.render(<App/>, document.getElementById('root'));
+ //ReactDOM.render(<Record message="text aaa" created="12.12.12"/>, document.getElementById('root'));
+</script>
+
+</body>
+</html>
