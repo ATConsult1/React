@@ -1,8 +1,8 @@
-
 import React, {Component} from 'react';
 import PaletteBox from "./PaletteBox";
 import {randomColor} from "../utils";
 
+//Компонент палитры
 export default class Palette extends Component{
 
     initProps = () =>
