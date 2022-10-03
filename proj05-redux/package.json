@@ -1,0 +1,7 @@
+{
+  "name": "proj05-redux",
+  "version": "1.0.0",
+  "dependencies": {
+    "redux": "^4.2.0"
+  }
+}
