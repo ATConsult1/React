@@ -4,6 +4,8 @@
   "description": "Test module pallete app",
   "main": "index.js",
   "scripts": {
+    "start-wp": "webpack --mode development --watch",
+    "start-dev": "webpack-dev-server --mode development --open --hot",
     "build": "react-scripts build",
     "start": "react-scripts start"
   },
