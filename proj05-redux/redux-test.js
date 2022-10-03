@@ -1,4 +1,5 @@
 const Redux = require('redux');
+const ReactRedux = require('react-redux');
 
 const log = console.log;
 
@@ -49,3 +50,21 @@ store.replaceReducer(reducer2);
 store.dispatch({type: 'MINUS'});
 
 log(store.getState());
+
+//---------------
+const plus = (st=0,ac) => { return (ac.type === '+'? st+1: st ); }
+const minus = (st=0,ac) => { return (ac.type === '-'? st-1: st ); }
+const reset = (st=10,ac) => { return (ac.type === 'r'? 0: st ); }
+
+const reducerCombined = Redux.combineReducers({p:plus, m:minus, r:reset});
+const storeCombined = Redux.createStore(reducerCombined,{p:0,m:0,r:10});
+log(storeCombined.getState());
+
+storeCombined.dispatch({type:'-'});
+storeCombined.dispatch({type:'+'});
+storeCombined.dispatch({type:'r'})
+log(storeCombined.getState());
+
+//----------------
+
+

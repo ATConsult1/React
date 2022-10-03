@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Redux</title>
+  <script src="https://unpkg.com/react@18.1.0/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/redux@4.2.0/dist/redux.min.js"></script>
+  <script src="https://unpkg.com/react-redux@7.2.9/dist/react-redux.min.js"></script>
+
+</head>
+<body>
+
+<div id="root"></div>
+<div id="root2"></div>
+
+<script>
+const log = console.log;
+
+const reducer = (state,action) =>
+{
+    let counter = state.counter;
+    switch (action.type)
+    {
+        case 'PLUS': counter++; break;
+        case 'MINUS': counter--; break;
+        case 'RESET': counter=0; break;
+        case 'DOUBLE': counter *= 2; break;
+        default:
+            log('type mismatch!!');
+            return {...state};
+    }
+    return {...state, counter: counter};
+}
+
+const init_state = {counter: 0};
+const store = Redux.createStore(reducer,init_state);
+log(store.getState());
+
+</script>
+
+
+<script type="text/babel">
+
+const Counter = (counter) =>
+{
+    return (
+    <h2>Counter: {counter} </h2>
+    );
+}
+
+const Button = ({color="green", type="+"}) =>
+{
+
+    const onClick =() =>{
+        log('button clicked!');
+        setButtonState({...state,counter: state.counter+1})
+    }
+
+    const [state,setButtonState] = React.useState({counter:0});
+    log(state, color);
+
+    return(
+        <div>
+        <button style={{color:color}} onClick={onClick}>
+            Counter: {state.counter}  type: {type}
+        </button>
+        </div>
+    );
+
+};
+
+ReactDOM.render(<Button color='green' type='+'/>,document.getElementById('root'));
+
+</script>
+
+
+</body>
+</html>
