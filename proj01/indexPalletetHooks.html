@@ -37,7 +37,17 @@ const PalleteBox = ({color= "#9ca1e7",size}) => {
 
        // ----- useEffect hook
       // React.useEffect(()=>{console.log(`useEffect listener fored +++ ${data.clicks}, ${data.extraStyle}`)},[data.clicks]);
-      React.useEffect(()=>{console.log(`useEffect listener fored +++ ${data.clicks}, ${data.extraStyle}`)},[data.extraStyle]);
+      React.useEffect(()=>{
+          console.log(`useEffect listener fored +++ ${data.clicks}, ${data.extraStyle}`)},
+          [data.extraStyle]);
+
+      //аналог componentWillUnmount
+      React.useEffect(()=>{
+          return()=>{
+            console.log('component will unmount');
+          };
+      },[]);
+
         size = parseInt(size);
         if (!Number.isInteger(size) || size < 10 || size > 150) size = 100;
 
